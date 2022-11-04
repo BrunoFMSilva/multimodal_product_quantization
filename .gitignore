@@ -156,3 +156,6 @@ pycharm
 
 # MacOS
 .DS_Store
+
+# datasets folder
+datasets

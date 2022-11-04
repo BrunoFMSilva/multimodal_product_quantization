@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from src.utils import open_redis_conn
-from src.readers.Reader import Reader
+from utils import open_redis_conn
+from .Reader import Reader
 
 
 class RedisReader(Reader):
@@ -23,7 +23,7 @@ class RedisReader(Reader):
             raw = self.redis_client.hgetall(key)[b"embedding"]
             embedding = np.frombuffer(raw, dtype=np.float32)
             embeddings.append(embedding)
-        data = np.ndarray(shape=(len(keys),), buffer=np.array(embeddings))
+        data = np.ndarray(shape=(1000, 768), buffer=np.array(embeddings), dtype=np.float32)
         return data
 
 
