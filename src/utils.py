@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Created By: Lucas Ribeiro Borges
 # ---------------------------------------------------------------------------
 """ Module containing assorted utility functions """
 
-import logging
 import sys
+import redis
+import logging
+
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
 
 
 def isPowerOfTwo(n: int) -> bool:
@@ -21,6 +25,7 @@ def isPowerOfTwo(n: int) -> bool:
         bool: A boolean indicating if n is a power of two.
     """
     return (n != 0) and (n & (n-1) == 0)
+
 
 def configureLogging(logLevel: str) -> None:
     """
@@ -48,3 +53,11 @@ def configureLogging(logLevel: str) -> None:
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     handler.setFormatter(formatter)
     root.addHandler(handler)
+
+
+def open_redis_conn():
+    redis_client = redis.Redis(
+        host=REDIS_HOST,
+        port=REDIS_PORT,
+    )
+    return redis_client
